@@ -1,0 +1,20 @@
+# Ignorar dependencias y archivos de lock
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignorar directorios de build y salida comunes
+.next/
+dist/
+build/
+out/
+coverage/
+
+# Ignorar archivos de entorno (a menudo no necesitan formato o contienen secretos)
+.env*
+!.env.example # A veces quieres que el ejemplo sí esté formateado
+
+.DS_Store
+*.log
+*.tgz
