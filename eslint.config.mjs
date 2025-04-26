@@ -1,7 +1,7 @@
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { FlatCompat } from '@eslint/eslintrc'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 const filename = fileURLToPath(import.meta.url)
 const dir = dirname(filename)
 
@@ -11,6 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  eslintConfigPrettier,
   {
     rules: {
       'comma-dangle': ['error', 'never'],
@@ -47,8 +48,7 @@ const eslintConfig = [
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off'
     }
-  },
-  eslintConfigPrettier
+  }
 ]
 
 export default eslintConfig
