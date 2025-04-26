@@ -1,7 +1,7 @@
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { FlatCompat } from '@eslint/eslintrc'
-
+import eslintConfigPrettier from 'eslint-config-prettier'
 const filename = fileURLToPath(import.meta.url)
 const dir = dirname(filename)
 
@@ -47,7 +47,8 @@ const eslintConfig = [
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off'
     }
-  }
+  },
+  eslintConfigPrettier
 ]
 
 export default eslintConfig
