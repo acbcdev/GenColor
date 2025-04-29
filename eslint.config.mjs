@@ -17,14 +17,6 @@ const eslintConfig = [
       'comma-dangle': ['error', 'never'],
       semi: ['error', 'never'],
       'react-hooks/exhaustive-deps': 'off',
-      'space-before-function-paren': [
-        'error',
-        {
-          anonymous: 'always',
-          named: 'always',
-          asyncArrow: 'always'
-        }
-      ],
       'func-call-spacing': ['error', 'never'],
       eqeqeq: ['error', 'always'],
       'no-var': 'error',
