@@ -9,11 +9,13 @@ export default function ColorPalette () {
         <Card key={item} className='w-full py-0 pb-3 gap-0'>
           <CardHeader className='p-0 m-0'>
             <div
-              className='w-full h-[100px] rounded-t-lg'
+              className='w-full h-[100px] rounded-t-[.5rem]'
               style={{ backgroundColor: item }}
             />
           </CardHeader>
-          <CardContent>{item}</CardContent>
+          <CardContent>
+            {item}
+          </CardContent>
         </Card>
       ))}
     </div>
