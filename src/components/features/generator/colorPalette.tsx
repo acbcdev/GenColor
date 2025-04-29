@@ -2,7 +2,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card'
 
 const data = ['#1E1E1E', '#3A3A3A', '#D4D4D4', '#FF9E6D', '#69D2E7']
 
-export default function ColorPalette() {
+export default function ColorPalette () {
   return (
     <div className='flex justify-between gap-6'>
       {data.map((item: string) => (

@@ -6,15 +6,14 @@ export default function ColorPicker () {
   const [input, setInput] = useState<string>('#69D2E7')
   const colorPickerRef = useRef<HTMLInputElement>(null)
 
-  const onChangeInput = ({ target: { value } }: { target: { value: string } }) => {
+  const onChangeInput = ({
+    target: { value }
+  }: {
+    target: { value: string }
+  }) => {
     if (value.length > 7) return
 
-    setInput(
-      `#${value
-        .toUpperCase()
-        .replace(/^#*/, '')
-      }`
-    )
+    setInput(`#${value.toUpperCase().replace(/^#*/, '')}`)
   }
 
   const onChangeColor = (e: React.ChangeEvent<HTMLInputElement>) => {

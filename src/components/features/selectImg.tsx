@@ -14,9 +14,17 @@ export default function SelectImage () {
             alt='img'
             className='opacity-60'
           />
-          <p className='font-sem'>Arrastra una imagen o haz clic para seleccionar</p>
+          <p className='font-sem'>
+            Arrastra una imagen o haz clic para seleccionar
+          </p>
           <Button className='cursor-pointer'>
-            <Image src='/upload.svg' width={20} height={20} alt='upload' className='invert' />
+            <Image
+              src='/upload.svg'
+              width={20}
+              height={20}
+              alt='upload'
+              className='invert'
+            />
             Cargar imagen
           </Button>
         </div>
