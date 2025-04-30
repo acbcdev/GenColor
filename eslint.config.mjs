@@ -23,7 +23,6 @@ const eslintConfig = [
       'prefer-const': 'error',
       'object-curly-spacing': ['error', 'always'],
       'array-bracket-spacing': ['error', 'never'],
-      indent: ['error', 2],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-loop-func': 'error',
       'no-eval': 'error',
