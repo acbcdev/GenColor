@@ -11,7 +11,7 @@ const toOklch = converter("oklch") // Crear un conversor reutilizable
  */
 function formatColor(
   color: ReturnType<typeof toOklch>,
-  format: ColorFormat = "hex"
+  format: ColorFormat = "oklch"
 ): string {
   if (!color) return "" // Manejo básico si el color es inválido/undefined
   switch (format) {
@@ -42,7 +42,7 @@ export function ensureContrast(
   color1Str: string,
   color2Str: string,
   minLightnessDiff = 0.4, // Aumentado ligeramente el default
-  outputFormat: ColorFormat = "hex"
+  outputFormat: ColorFormat = "oklch"
 ): string {
   const c1 = toOklch(color1Str)
   let c2 = toOklch(color2Str)
@@ -120,12 +120,12 @@ function optimizeForContrast(
       fg.l = Math.max(0.05, fg.l - 0.05)
     }
 
-    const newFgColor = formatColor(fg, "hex")
+    const newFgColor = formatColor(fg, "oklch")
     contrast = calculateContrastRatio(bgColor, newFgColor)
     attempts++
   }
 
-  return formatColor(fg, "hex")
+  return formatColor(fg, "oklch")
 }
 
 // Valores por defecto para los ajustes de generación
@@ -167,7 +167,7 @@ export function generatePalette(
   if (!base) throw new Error(`Invalid base color format: ${baseColorStr}`)
 
   const {
-    format = "hex",
+    format = "oklch",
     minContrastRatio = 4.5,
     harmonyType = "analogous",
     lightAdjustments: lightOpts = {},
@@ -373,7 +373,3 @@ export function generateHarmonies(
     .map((color) => formatColor(color, format))
 }
 
-
-export function extractColorValues(color: string) {
-  return color.replace(/[a-z\(\)]/g,'').split(' ').map(Number)
-}

@@ -1,7 +1,5 @@
 "use client"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import toh from "hsl-to-hex"
-import { extractColorValues } from "@/lib/maker"
 import {
   Select,
   SelectTrigger,
@@ -14,6 +12,7 @@ import { useState } from "react"
 import ColorPicker from "@/components/features/paletteGenerator/colorPicker"
 import SelectImage from "@/components/features/paletteGenerator/selectImg"
 import { useThemeStore } from "@/store/theme"
+import { formatHex } from "culori"
 
 export default function Generator() {
   const [option, setOption] = useState<string>("Hexadecimal")
@@ -49,15 +48,13 @@ export default function Generator() {
           <h2 className='text-lg font-bold'>Dark Mode</h2>
           <div>
             {Object.entries(theme?.dark ?? {}).map(([key, value]) => {
-              const color = extractColorValues(value)
-              const hex = toh(color[0], color[1], color[2])
               return (
                 <div key={key} className=''>
                   <div
                     className=' rounded-lg cursor-pointer hover:opacity-85 transition-colors border-2'
                     style={{ backgroundColor: value }}
                   >
-                    {value}
+                    {formatHex(value)}
                   </div>
                   <p>{key}</p>
                 </div>
@@ -74,7 +71,7 @@ export default function Generator() {
                   className=' rounded-lg cursor-pointer hover:opacity-85 transition-colors border-2'
                   style={{ backgroundColor: value }}
                 >
-                  {value}
+                  {formatHex(value)}
                 </div>
                 <p>{key}</p>
               </div>
