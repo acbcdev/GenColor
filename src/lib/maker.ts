@@ -1,4 +1,11 @@
-import type { ColorAdjustments, ColorFormat, ColorPalette, HarmonyOptions, PaletteOptions, ThemeColors } from "@/types/maker"
+import type {
+  ColorAdjustments,
+  ColorFormat,
+  ColorPalette,
+  HarmonyOptions,
+  PaletteOptions,
+  ThemeColors
+} from "@/types/maker"
 import { formatHex, formatRgb, converter, wcagLuminance } from "culori"
 
 const toOklch = converter("oklch") // Crear un conversor reutilizable
@@ -372,4 +379,3 @@ export function generateHarmonies(
     .slice(0, finalCount)
     .map((color) => formatColor(color, format))
 }
-

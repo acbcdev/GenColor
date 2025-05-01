@@ -6,8 +6,7 @@ export interface ThemeState {
   setTheme: (theme: ColorPalette) => void
 }
 
-
 export const useThemeStore = create<ThemeState>((set) => ({
   theme: undefined,
-  setTheme : (theme) => set(() => ({ theme })),
+  setTheme: (theme) => set(() => ({ theme }))
 }))

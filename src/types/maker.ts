@@ -1,4 +1,3 @@
-
 // Tipos para claridad
 export type ColorFormat = "oklch" | "hex" | "rgb"
 export type HarmonyType =
