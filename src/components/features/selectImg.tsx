@@ -1,8 +1,8 @@
-import { Card, CardContent } from '@/components/ui/card'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 
-export default function SelectImage () {
+export default function SelectImage() {
   return (
     <Card>
       <CardContent className='flex items-center justify-center py-12'>
