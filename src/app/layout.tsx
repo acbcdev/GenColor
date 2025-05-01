@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
 import "./globals.css"
+import Header from "@/components/sections/header"
 
 export const metadata: Metadata = {
   title: "GenColor",
@@ -13,7 +14,10 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang='en' className='dark'>
-      <body className='antialiased'>{children}</body>
+      <body className='antialiased'>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }
