@@ -1,82 +1,5 @@
+import type { ColorAdjustments, ColorFormat, ColorPalette, HarmonyOptions, PaletteOptions, ThemeColors } from "@/types/maker"
 import { formatHex, formatRgb, converter, wcagLuminance } from "culori"
-
-// Tipos para claridad
-type ColorFormat = "oklch" | "hex" | "rgb"
-type HarmonyType =
-  | "analogous"
-  | "complementary"
-  | "split-complementary"
-  | "triadic"
-  | "tetradic"
-  | "monochromatic"
-  | "shades"
-  | "neutral"
-  | "accent"
-
-interface HarmonyOptions {
-  type?: HarmonyType
-  format?: ColorFormat
-  count?: number
-}
-
-// Interfaz de paleta sin cambios
-interface ColorPalette {
-  light: ThemeColors
-  dark: ThemeColors
-  harmonies: string[]
-  accessibility: AccessibilityInfo
-}
-
-interface ThemeColors {
-  background: string
-  foreground: string
-  primary: string
-  secondary: string
-  muted: string
-  accent: string
-  card: string
-  border: string
-}
-
-interface AccessibilityInfo {
-  lightMode: {
-    textContrast: number
-    primaryContrast: number
-    secondaryContrast: number
-  }
-  darkMode: {
-    textContrast: number
-    primaryContrast: number
-    secondaryContrast: number
-  }
-}
-
-// Opciones para la generación de paleta
-interface PaletteOptions {
-  /** Formato de color de salida */
-  format?: ColorFormat
-  /** Ratio de contraste mínimo (basado en diferencia de OKLCH Lightness) */
-  minContrastRatio?: number
-  /** Tipo de armonía a generar */
-  harmonyType?: HarmonyType
-  /** Ajustes finos para modo claro */
-  lightAdjustments?: Partial<ColorAdjustments>
-  /** Ajustes finos para modo oscuro */
-  darkAdjustments?: Partial<ColorAdjustments>
-}
-
-// Ajustes detallados para los colores generados (valores por defecto similares a los originales)
-interface ColorAdjustments {
-  bgL: number // Lightness para background
-  fgL: number // Lightness para foreground
-  primaryLScale?: number // Escala de Lightness para primary (1 = sin cambio)
-  secondaryHueShift: number // Desplazamiento de Hue para secondary
-  accentHueShift: number // Desplazamiento de Hue para accent
-  chromaScale: number // Escala general de Chroma (0.05 = muy desaturado, 1 = original)
-  mutedChromaScale: number // Escala de Chroma específica para muted
-  cardLScale?: number // Factor para calcular L de card desde L de background
-  borderLScale?: number // Factor para calcular L de border desde L de background
-}
 
 const toOklch = converter("oklch") // Crear un conversor reutilizable
 
@@ -88,7 +11,7 @@ const toOklch = converter("oklch") // Crear un conversor reutilizable
  */
 function formatColor(
   color: ReturnType<typeof toOklch>,
-  format: ColorFormat = "oklch"
+  format: ColorFormat = "hex"
 ): string {
   if (!color) return "" // Manejo básico si el color es inválido/undefined
   switch (format) {
@@ -119,7 +42,7 @@ export function ensureContrast(
   color1Str: string,
   color2Str: string,
   minLightnessDiff = 0.4, // Aumentado ligeramente el default
-  outputFormat: ColorFormat = "oklch"
+  outputFormat: ColorFormat = "hex"
 ): string {
   const c1 = toOklch(color1Str)
   let c2 = toOklch(color2Str)
@@ -197,12 +120,12 @@ function optimizeForContrast(
       fg.l = Math.max(0.05, fg.l - 0.05)
     }
 
-    const newFgColor = formatColor(fg, "oklch")
+    const newFgColor = formatColor(fg, "hex")
     contrast = calculateContrastRatio(bgColor, newFgColor)
     attempts++
   }
 
-  return formatColor(fg, "oklch")
+  return formatColor(fg, "hex")
 }
 
 // Valores por defecto para los ajustes de generación
@@ -244,7 +167,7 @@ export function generatePalette(
   if (!base) throw new Error(`Invalid base color format: ${baseColorStr}`)
 
   const {
-    format = "oklch",
+    format = "hex",
     minContrastRatio = 4.5,
     harmonyType = "analogous",
     lightAdjustments: lightOpts = {},
@@ -448,4 +371,9 @@ export function generateHarmonies(
   return harmonies
     .slice(0, finalCount)
     .map((color) => formatColor(color, format))
+}
+
+
+export function extractColorValues(color: string) {
+  return color.replace(/[a-z\(\)]/g,'').split(' ').map(Number)
 }
