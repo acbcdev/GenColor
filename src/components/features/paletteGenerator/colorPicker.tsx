@@ -6,7 +6,7 @@ import { useThemeStore } from "@/store/theme"
 import { useDebounce } from "@uidotdev/usehooks"
 
 export default function ColorPicker() {
-  const [input, setInput] = useState<string>("#e2e2e2")
+  const [input, setInput] = useState<string>("#69D2E7")
   const colorPickerRef = useRef<HTMLInputElement>(null)
   const setTheme = useThemeStore((state) => state.setTheme)
   const debounceInput = useDebounce(input, 200)
