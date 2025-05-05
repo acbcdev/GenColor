@@ -34,8 +34,6 @@ const eslintConfig = [
       "space-infix-ops": "error",
       "keyword-spacing": "error",
       "comma-spacing": ["error", { before: false, after: true }],
-      quotes: ["error", "double"],
-      "jsx-quotes": ["error", "double-double"],
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off"
     }
