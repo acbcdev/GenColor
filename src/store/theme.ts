@@ -1,5 +1,5 @@
-import { ColorPalette } from "@/types/maker"
-import { create } from "zustand"
+import { ColorPalette } from '@/types/maker'
+import { create } from 'zustand'
 
 export interface ThemeState {
   theme?: ColorPalette

@@ -1,12 +1,12 @@
-"use client"
-import { useState, useRef, useEffect } from "react"
-import { Input } from "@/components/ui/input"
-import { generatePalette } from "@/lib/maker"
-import { useThemeStore } from "@/store/theme"
-import { useDebounce } from "@uidotdev/usehooks"
+'use client'
+import { useState, useRef, useEffect } from 'react'
+import { Input } from '@/components/ui/input'
+import { generatePalette } from '@/lib/maker'
+import { useThemeStore } from '@/store/theme'
+import { useDebounce } from '@uidotdev/usehooks'
 
 export default function ColorPicker() {
-  const [input, setInput] = useState<string>("#69D2E7")
+  const [input, setInput] = useState<string>('#69D2E7')
   const colorPickerRef = useRef<HTMLInputElement>(null)
   const setTheme = useThemeStore((state) => state.setTheme)
   const debounceInput = useDebounce(input, 200)
@@ -17,7 +17,7 @@ export default function ColorPicker() {
   }) => {
     if (value.length > 7) return
 
-    setInput(`#${value.toUpperCase().replace(/^#*/, "")}`)
+    setInput(`#${value.toUpperCase().replace(/^#*/, '')}`)
   }
 
   useEffect(() => {

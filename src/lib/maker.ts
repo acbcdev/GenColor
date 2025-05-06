@@ -5,10 +5,10 @@ import type {
   HarmonyOptions,
   PaletteOptions,
   ThemeColors
-} from "@/types/maker"
-import { formatHex, formatRgb, converter, wcagLuminance } from "culori"
+} from '@/types/maker'
+import { formatHex, formatRgb, converter, wcagLuminance } from 'culori'
 
-const toOklch = converter("oklch") // Crear un conversor reutilizable
+const toOklch = converter('oklch') // Crear un conversor reutilizable
 
 /**
  * Formatea un color Culori al formato deseado.
@@ -18,15 +18,15 @@ const toOklch = converter("oklch") // Crear un conversor reutilizable
  */
 function formatColor(
   color: ReturnType<typeof toOklch>,
-  format: ColorFormat = "oklch"
+  format: ColorFormat = 'oklch'
 ): string {
-  if (!color) return "" // Manejo básico si el color es inválido/undefined
+  if (!color) return '' // Manejo básico si el color es inválido/undefined
   switch (format) {
-    case "hex":
+    case 'hex':
       return formatHex(color)
-    case "rgb":
+    case 'rgb':
       return formatRgb(color)
-    case "oklch":
+    case 'oklch':
     default:
       // Asegurar valores definidos para h (importante para oklch string)
       const l = color.l ?? 0
@@ -49,20 +49,20 @@ export function ensureContrast(
   color1Str: string,
   color2Str: string,
   minLightnessDiff = 0.4, // Aumentado ligeramente el default
-  outputFormat: ColorFormat = "oklch"
+  outputFormat: ColorFormat = 'oklch'
 ): string {
   const c1 = toOklch(color1Str)
   let c2 = toOklch(color2Str)
 
   if (!c1 || !c2) {
-    console.warn("EnsureContrast: Invalid color format provided.", {
+    console.warn('EnsureContrast: Invalid color format provided.', {
       color1Str,
       color2Str
     })
     // Devolver el color original o un valor seguro
     return (
       formatColor(c2, outputFormat) ||
-      (outputFormat === "hex" ? "#000000" : "oklch(0 0 0)")
+      (outputFormat === 'hex' ? '#000000' : 'oklch(0 0 0)')
     )
   }
 
@@ -113,7 +113,7 @@ function optimizeForContrast(
   const bg = toOklch(bgColor)
   const fg = toOklch(fgColor)
 
-  if (!bg || !fg) throw new Error("Invalid color format")
+  if (!bg || !fg) throw new Error('Invalid color format')
 
   let contrast = calculateContrastRatio(bgColor, fgColor)
   let attempts = 0
@@ -127,12 +127,12 @@ function optimizeForContrast(
       fg.l = Math.max(0.05, fg.l - 0.05)
     }
 
-    const newFgColor = formatColor(fg, "oklch")
+    const newFgColor = formatColor(fg, 'oklch')
     contrast = calculateContrastRatio(bgColor, newFgColor)
     attempts++
   }
 
-  return formatColor(fg, "oklch")
+  return formatColor(fg, 'oklch')
 }
 
 // Valores por defecto para los ajustes de generación
@@ -174,9 +174,9 @@ export function generatePalette(
   if (!base) throw new Error(`Invalid base color format: ${baseColorStr}`)
 
   const {
-    format = "oklch",
+    format = 'oklch',
     minContrastRatio = 4.5,
-    harmonyType = "analogous",
+    harmonyType = 'analogous',
     lightAdjustments: lightOpts = {},
     darkAdjustments: darkOpts = {}
   } = options
@@ -257,7 +257,7 @@ function generateThemeColors(
   adjustments: ColorAdjustments,
   format: ColorFormat
 ): ThemeColors {
-  if (!base) throw new Error("Invalid base color")
+  if (!base) throw new Error('Invalid base color')
 
   const h = base.h || 0
   // const factor = isLight ? 1 : -1
@@ -308,7 +308,7 @@ function generateThemeColors(
   return Object.entries(colors).reduce(
     (acc, [key, value]) => ({
       ...acc,
-      [key]: formatColor({ ...value, mode: "oklch" }, format)
+      [key]: formatColor({ ...value, mode: 'oklch' }, format)
     }),
     {}
   ) as ThemeColors
@@ -327,33 +327,33 @@ export function generateHarmonies(
   const base = toOklch(baseColorStr)
   if (!base) throw new Error(`Invalid base color format: ${baseColorStr}`)
 
-  const { format = "oklch", type = "analogous", count = 5 } = options
+  const { format = 'oklch', type = 'analogous', count = 5 } = options
   const { l, h = 0 } = base // Usar h=0 si es undefined
 
   const harmonies: ReturnType<typeof toOklch>[] = [base]
 
   switch (type) {
-    case "complementary":
+    case 'complementary':
       harmonies.push({ ...base, h: (h + 180) % 360 })
       break
-    case "split-complementary":
+    case 'split-complementary':
       harmonies.push({ ...base, h: (h + 150) % 360 })
       harmonies.push({ ...base, h: (h + 210) % 360 })
       break
-    case "analogous":
+    case 'analogous':
       harmonies.push({ ...base, h: (h + 30) % 360 })
       harmonies.push({ ...base, h: (h - 30 + 360) % 360 }) // Asegurar positivo
       break
-    case "triadic":
+    case 'triadic':
       harmonies.push({ ...base, h: (h + 120) % 360 })
       harmonies.push({ ...base, h: (h + 240) % 360 })
       break
-    case "tetradic": // Rectangular
+    case 'tetradic': // Rectangular
       harmonies.push({ ...base, h: (h + 60) % 360 })
       harmonies.push({ ...base, h: (h + 180) % 360 })
       harmonies.push({ ...base, h: (h + 240) % 360 })
       break
-    case "monochromatic":
+    case 'monochromatic':
       // Genera variaciones de luminosidad manteniendo C y H
       const step = (1 - l) / count // Hacia blanco
       const stepDark = l / count // Hacia negro
@@ -374,7 +374,7 @@ export function generateHarmonies(
   }
 
   // Limitar al número base + 4 (o count para monocromatic) y formatear
-  const finalCount = type === "monochromatic" ? count : 5
+  const finalCount = type === 'monochromatic' ? count : 5
   return harmonies
     .slice(0, finalCount)
     .map((color) => formatColor(color, format))

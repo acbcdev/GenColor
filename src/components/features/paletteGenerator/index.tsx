@@ -24,7 +24,7 @@ export default function Generator() {
             <p className='text-nowrap'>Metodo de generación:</p>
             <Select
               defaultValue='Hexadecimal'
-              onValueChange={e => setOption(e)}
+              onValueChange={(e) => setOption(e)}
             >
               <SelectTrigger>
                 <SelectValue placeholder='Metodo de generación' />

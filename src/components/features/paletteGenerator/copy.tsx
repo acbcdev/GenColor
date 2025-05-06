@@ -12,13 +12,11 @@ import { toast } from 'sonner'
 import { useThemeStore } from '@/store/theme'
 import type { ThemeColors } from '@/types/maker'
 
-export default function Copy () {
-  const theme = useThemeStore(state => state.theme)
+export default function Copy() {
+  const theme = useThemeStore((state) => state.theme)
 
   // Modificamos la función para aceptar el modo y añadir variables faltantes
-  const generateCssVariables = (
-    colors: ThemeColors | undefined
-  ): string => {
+  const generateCssVariables = (colors: ThemeColors | undefined): string => {
     if (!colors) return ''
 
     const variableMap: { [K in keyof ThemeColors]: string } = {
@@ -53,12 +51,10 @@ export default function Copy () {
   const fullCssCode = `:root {\n  --radius: 0.5rem;\n${lightModeCss}}\n\n.dark {\n${darkModeCss}}`
 
   const copyStyles = () => async () => {
-    await navigator.clipboard.writeText(fullCssCode)
-      .then(() => {
-        toast.message('Estilos copiados')
-      })
+    await navigator.clipboard.writeText(fullCssCode).then(() => {
+      toast.message('Estilos copiados')
+    })
   }
-
 
   return (
     <Dialog>
@@ -71,7 +67,8 @@ export default function Copy () {
         <DialogHeader>
           <DialogTitle>Theme</DialogTitle>
           <DialogDescription>
-            Copie y pegue el siguiente código en su archivo CSS global (por ejemplo, `globals.css`).
+            Copie y pegue el siguiente código en su archivo CSS global (por
+            ejemplo, `globals.css`).
           </DialogDescription>
         </DialogHeader>
         <div className='mt-4 grid gap-4'>

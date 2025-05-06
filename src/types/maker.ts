@@ -1,15 +1,15 @@
 // Tipos para claridad
-export type ColorFormat = "oklch" | "hex" | "rgb"
+export type ColorFormat = 'oklch' | 'hex' | 'rgb'
 export type HarmonyType =
-  | "analogous"
-  | "complementary"
-  | "split-complementary"
-  | "triadic"
-  | "tetradic"
-  | "monochromatic"
-  | "shades"
-  | "neutral"
-  | "accent"
+  | 'analogous'
+  | 'complementary'
+  | 'split-complementary'
+  | 'triadic'
+  | 'tetradic'
+  | 'monochromatic'
+  | 'shades'
+  | 'neutral'
+  | 'accent'
 
 export interface HarmonyOptions {
   type?: HarmonyType

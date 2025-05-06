@@ -1,4 +1,4 @@
-import Generator from "@/components/features/paletteGenerator"
+import Generator from '@/components/features/paletteGenerator'
 
 export default function Home() {
   return (
