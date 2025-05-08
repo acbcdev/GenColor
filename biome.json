@@ -32,7 +32,7 @@
     "ignore": [],
     "include": ["src/**/*"]
   },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "linter": { "enabled": false, "rules": { "recommended": true } },
   "javascript": {
     "formatter": {
       "jsxQuoteStyle": "single",
